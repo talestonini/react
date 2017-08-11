@@ -1,5 +1,10 @@
 import * as types from '../actions/actionTypes'
-import initialState from './initialState'
+
+const initialState = {
+  loadedRefData: {
+    albums: []
+  }
+}
 
 const refDataReducer = (state = initialState.loadedRefData, action) => {
   switch (action.type) {

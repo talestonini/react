@@ -3,14 +3,24 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import * as refDataActions from '../../actions/refDataActions'
+import { getVisibleRefData } from '../../selectors/refDataSelector'
 
 class RefData extends React.Component {
   render() {
-    const albums = this.props.propForUI
+    const albumsFromReducer = this.props.propForUI
+    const albumsFromSelector = this.props.propFromSelector
     return (
       <div className="col-md-12">
+        <p>Straight from reducer:</p>
         <lu>
-          {albums.map(album =>
+          {albumsFromReducer.map(album =>
+            <li key={album.name}>{album.name}</li>
+          )}
+        </lu>
+        <br></br>
+        <p>From selector:</p>
+        <lu>
+          {albumsFromSelector.map(album =>
             <li key={album.name}>{album.name}</li>
           )}
         </lu>
@@ -20,12 +30,14 @@ class RefData extends React.Component {
 }
 
 RefData.propTypes = {
-  propForUI: PropTypes.array.isRequired
+  propForUI: PropTypes.array,
+  propFromSelector: PropTypes.array
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    propForUI: state.propForConnectedComponent.albums
+    propForUI: state.propForConnectedComponent.albums,
+    propFromSelector: getVisibleRefData(state.propForConnectedComponent)
   }
 }
 
