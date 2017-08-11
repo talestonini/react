@@ -23,7 +23,7 @@ RefData.propTypes = {
   propForUI: PropTypes.array.isRequired
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   return {
     propForUI: state.propForConnectedComponent.albums
   }
